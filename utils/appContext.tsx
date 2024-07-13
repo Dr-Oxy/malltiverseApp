@@ -11,6 +11,7 @@ const emptyItem: Item = {
   description: '',
   qty: 0,
   available_quantity: 0,
+  categories: [],
 };
 
 // Provide a default value for the context
@@ -28,66 +29,9 @@ const defaultContextValue: AppContextType = {
 export const AppContext = createContext<AppContextType>(defaultContextValue);
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
-  const [cart, setCart] = useState<Item[]>([
-    {
-      id: 1,
-      name: 'Hello Kitty',
-      current_price: '3000',
-      unit: 'USF',
-      photos:
-        'https://api.timbu.cloud/images/girlies/product_pink_princess_a27c74_1.jpg',
-      description: '',
-      qty: 1,
-      available_quantity: 0,
-    },
-    {
-      id: 4,
-      name: 'Ladies Leather Chic Bag',
-      current_price: '3000',
-      unit: 'USF',
-      photos:
-        'https://api.timbu.cloud/images/girlies/product_terrain_boots_d4f648_1.jpg',
-      description: '',
-      qty: 1,
-      available_quantity: 0,
-    },
-    {
-      id: 2,
-      name: 'Brown Crop Top SweatShirt',
-      current_price: '3000',
-      unit: 'USF',
-      photos:
-        'https://api.timbu.cloud/images/girlies/product_print_crop_top_8edb3b_1.jpg',
-      description: '',
-      qty: 1,
-      available_quantity: 0,
-    },
-    {
-      id: 3,
-      name: 'Itel Bluetooth Earphones',
-      current_price: '3000',
-      unit: 'USF',
-      photos:
-        'https://api.timbu.cloud/images/girlies/product_two_piece_41ec35_1.jpg',
-      description: '',
-      qty: 1,
-      available_quantity: 0,
-    },
-    {
-      id: 9,
-      name: 'Brown Crop Top SweatShirt',
-      current_price: '3000',
-      unit: 'USF',
-      photos:
-        'https://api.timbu.cloud/images/girlies/product_print_crop_top_8edb3b_1.jpg',
-      description: '',
-      qty: 1,
-      available_quantity: 0,
-    },
-  ]);
+  const [cart, setCart] = useState<Item[]>([]);
   const [selected, setSelected] = useState<any>();
 
-  // add to cart
   const onAdd = (product: Item) => {
     //checks if the product already exist in the cart
     const itemExist = cart.find((x) => x.id === product.id);
@@ -97,13 +41,13 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
       setCart(
         cart.map((x) =>
           x.id === product.id
-            ? { ...itemExist, qty: itemExist.qty + product.qty }
+            ? { ...itemExist, qty: (itemExist.qty || 0) + 1 }
             : x,
         ),
       );
     } else {
       //if product doesn't exist in cart, add to cart
-      setCart([...cart, { ...product }]);
+      setCart([...cart, { ...product, qty: 1 }]);
     }
   };
 

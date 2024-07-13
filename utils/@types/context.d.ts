@@ -20,6 +20,7 @@ export interface Item {
   description: '';
   qty: number;
   available_quantity: number;
+  categories: any;
 }
 
 export interface PropsWithChildren {

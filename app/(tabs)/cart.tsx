@@ -20,6 +20,18 @@ export default function Cart() {
   const { cart, setCart, onDelete, onAdd, onRemove } = useContext(AppContext);
   const [discount, setDiscount] = useState('');
 
+  const deliveryFee = 15;
+
+  //Total cart
+  const sumPrice = cart.reduce(
+    (price, item) => price + item.qty * item.current_price[0]?.USD[0],
+    0,
+  );
+
+  const subTotal = new Intl.NumberFormat().format(sumPrice);
+
+  const total = new Intl.NumberFormat().format(deliveryFee + sumPrice);
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <Header text="My Cart" />
@@ -33,14 +45,19 @@ export default function Cart() {
           {cart?.map((item) => (
             <View style={styles.cartCard} key={item.id}>
               <View>
-                <Image style={styles.cardImg} source={{ uri: item.photos }} />
+                <Image
+                  style={styles.cardImg}
+                  source={{
+                    uri: `https://api.timbu.cloud/images/${item?.photos[0]?.url}`,
+                  }}
+                />
               </View>
 
               <View style={styles.cardGroup}>
-                <View style={[styles.cardFlex, { marginBottom: 10 }]}>
+                <View style={[styles.cardFlex, { marginBottom: 10, gap: 32 }]}>
                   <View style={styles.cardText}>
                     <Text style={styles.title}>{item.name}</Text>
-                    <Text style={styles.sub}>Office Trendy Handbag Brown</Text>
+                    <Text style={styles.sub}>{item.description}</Text>
                   </View>
 
                   <View>
@@ -76,7 +93,9 @@ export default function Cart() {
                     </Pressable>
                   </View>
 
-                  <Text style={styles.price}>30,000</Text>
+                  <Text style={styles.price}>
+                    ${item.current_price[0]?.USD[0] * item.qty}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -101,12 +120,12 @@ export default function Cart() {
 
             <View style={styles.wrapT}>
               <Text style={styles.subT}>Sub-Total</Text>
-              <Text style={styles.lead}>price</Text>
+              <Text style={styles.lead}>${subTotal}</Text>
             </View>
 
             <View style={styles.wrapT}>
               <Text style={styles.subT}>Delivery Fee</Text>
-              <Text style={styles.lead}>$15</Text>
+              <Text style={styles.lead}>${deliveryFee}</Text>
             </View>
 
             <View style={styles.wrapT}>
@@ -116,7 +135,7 @@ export default function Cart() {
 
             <View style={styles.totalPriceWrap}>
               <Text style={styles.subT}>Total Amount</Text>
-              <Text style={styles.lead}>0</Text>
+              <Text style={styles.lead}>${total}</Text>
             </View>
 
             <Pressable style={styles.totalButton}>

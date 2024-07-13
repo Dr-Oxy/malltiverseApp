@@ -12,6 +12,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 import { AppContextProvider } from '@/utils/appContext';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,14 +37,20 @@ export default function RootLayout() {
     return null;
   }
 
+  const queryClient = new QueryClient();
+
   return (
-    <AppContextProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ThemeProvider>
-    </AppContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AppContextProvider>
+        <ThemeProvider
+          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ThemeProvider>
+      </AppContextProvider>
+    </QueryClientProvider>
   );
 }

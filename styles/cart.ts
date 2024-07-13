@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
 
   checkout: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 22,
     backgroundColor: '#FAFAFA',
     position: 'relative',
     marginBottom: 90,
@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
     marginBottom: 21,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 15,
   },
 
