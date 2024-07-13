@@ -66,6 +66,11 @@ export default function HomeScreen() {
         </TwoColumn>
       ) : (
         <ScrollView style={styles.productContainer}>
+          <Image
+            style={styles.hero}
+            source={require('@/assets/images/homePic.png')}
+          />
+
           <Section arr={accessories} title="Accessories" />
 
           <Section arr={dresses} title="Dresses" />
@@ -104,6 +109,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 12,
     fontFamily: 'Montserrat-Medium',
+  },
+
+  hero: {
+    height: 232,
+    width: `100%`,
+    resizeMode: 'contain',
+    marginBottom: 30,
   },
 
   productContainer: {

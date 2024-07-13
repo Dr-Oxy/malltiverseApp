@@ -51,8 +51,6 @@ const Section = ({ arr, title }: SectionProps) => {
     );
   };
 
-  console.log({ cart });
-
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{title}</Text>
@@ -69,6 +67,7 @@ const Section = ({ arr, title }: SectionProps) => {
         snapToInterval={width}
         decelerationRate="fast"
       />
+
       <View style={styles.indicatorContainer}>
         {arr
           .filter((_: any, index: number) => index % 2 === 0)
