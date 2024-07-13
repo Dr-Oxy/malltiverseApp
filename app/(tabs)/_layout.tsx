@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { TabIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -34,14 +34,20 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabBarIcon name="home-outline" color={color} />
+              <TabIcon
+                source={
+                  focused
+                    ? require('@/assets/images/home-2.png')
+                    : require('@/assets/images/home.png')
+                }
+              />
             </View>
           ),
         }}
@@ -51,14 +57,20 @@ export default function TabLayout() {
         name="explore"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabBarIcon name="code-slash-outline" color={color} />
+              <TabIcon
+                source={
+                  focused
+                    ? require('@/assets/images/cart2.png')
+                    : require('@/assets/images/cart2.png')
+                }
+              />
             </View>
           ),
         }}
@@ -68,14 +80,20 @@ export default function TabLayout() {
         name="cart"
         options={{
           title: 'Cart',
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabBarIcon name="cart-outline" color={color} />
+              <TabIcon
+                source={
+                  focused
+                    ? require('@/assets/images/cart-focused.png')
+                    : require('@/assets/images/cart.png')
+                }
+              />
             </View>
           ),
         }}
