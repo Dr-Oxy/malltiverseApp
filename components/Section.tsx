@@ -7,6 +7,7 @@ import {
   Dimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  Alert,
 } from 'react-native';
 
 import { Item } from '@/utils/@types/context';
@@ -14,7 +15,7 @@ import { AppContext } from '@/utils/appContext';
 import ProductCard from './ProductCard';
 
 const { width } = Dimensions.get('window');
-const containerPadding = 22 * 2; // Padding on both sides
+const containerPadding = 24 * 2; // Padding on both sides
 
 const availableWidth = width - containerPadding;
 const cardWidth = availableWidth * 0.45;
@@ -28,6 +29,15 @@ const Section = ({ arr, title }: SectionProps) => {
   const { onAdd, cart } = useContext(AppContext);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
+  const addToCart = (product: Item) => {
+    onAdd(product);
+
+    Alert.alert(
+      'Product Added!',
+      `${product.name} has been successfully added to cart.`,
+    );
+  };
+
   const flatListRef = useRef<FlatList<Item>>(null);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -38,7 +48,7 @@ const Section = ({ arr, title }: SectionProps) => {
   };
 
   const renderProduct = (item: Item) => (
-    <ProductCard onPress={() => onAdd(item)} key={item.id} item={item} />
+    <ProductCard onPress={() => addToCart(item)} key={item.id} item={item} />
   );
 
   const renderItem = ({ item, index }: { item: Item; index: number }) => {
@@ -101,19 +111,18 @@ const styles = StyleSheet.create({
   },
 
   page: {
-    // backgroundColor: 'red',
     width: availableWidth,
     flexDirection: 'row',
   },
 
-  card: {
-    width: cardWidth,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 8,
-    paddingVertical: 16,
-    alignItems: 'center',
-    margin: 8,
-  },
+  // card: {
+  //   width: cardWidth,
+  //   backgroundColor: '#f9f9f9',
+  //   borderRadius: 8,
+  //   paddingVertical: 16,
+  //   alignItems: 'center',
+  //   margin: 8,
+  // },
 
   indicatorContainer: {
     flexDirection: 'row',
