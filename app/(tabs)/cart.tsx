@@ -16,7 +16,7 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { AppContext } from '@/utils/appContext';
 import { styles } from '@/styles/cart';
 
-export default function TabTwoScreen() {
+export default function Cart() {
   const { cart, setCart, onDelete, onAdd, onRemove } = useContext(AppContext);
   const [discount, setDiscount] = useState('');
 
