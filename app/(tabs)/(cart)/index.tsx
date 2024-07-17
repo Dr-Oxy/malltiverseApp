@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -11,7 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import { Header } from '@/components';
+import { Header, CartTab } from '@/components';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
 import { AppContext } from '@/utils/appContext';
@@ -21,7 +21,7 @@ import { NavigationProps } from '@/utils/@types/context';
 
 export default function Cart() {
   const navigation = useNavigation<NavigationProps>();
-  const { cart, setCart, onDelete, onAdd, onRemove } = useContext(AppContext);
+  const { cart, onDelete, onAdd, onRemove } = useContext(AppContext);
   const [discount, setDiscount] = useState('');
 
   const deliveryFee = 15;
@@ -43,6 +43,7 @@ export default function Cart() {
   return (
     <SafeAreaView style={styles.wrapper}>
       <Header text="My Cart" />
+      <CartTab />
 
       {cart?.length === 0 ? (
         <View style={styles.emptyCart}>

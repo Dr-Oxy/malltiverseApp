@@ -2,12 +2,39 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { TabIcon, TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+
+  const tabList = [
+    {
+      id: 1,
+      name: 'index',
+      title: 'Home',
+      tabIcon: 'home',
+    },
+    {
+      id: 2,
+      name: '(cart)',
+      title: 'Cart',
+      tabIcon: 'cart',
+    },
+    {
+      id: 3,
+      name: 'support',
+      title: 'Support',
+      tabIcon: 'chatbubbles',
+    },
+    {
+      id: 4,
+      name: 'profile',
+      title: 'Profile',
+      tabIcon: 'person',
+    },
+  ];
 
   return (
     <Tabs
@@ -29,74 +56,30 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <View
-              style={[
-                { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
-                styles.iconWrap,
-              ]}
-            >
-              <TabBarIcon name="home" color={color} />
-            </View>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="(cart)"
-        options={{
-          title: 'Cart',
-          tabBarIcon: ({ focused, color }) => (
-            <View
-              style={[
-                { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
-                styles.iconWrap,
-              ]}
-            >
-              <TabBarIcon name="cart" color={color} />
-            </View>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="support"
-        options={{
-          title: 'Support',
-          tabBarIcon: ({ focused, color }) => (
-            <View
-              style={[
-                { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
-                styles.iconWrap,
-              ]}
-            >
-              <TabBarIcon name="chatbubbles" color={color} />
-            </View>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ focused, color }) => (
-            <View
-              style={[
-                { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
-                styles.iconWrap,
-              ]}
-            >
-              <TabBarIcon name="person" color={color} />
-            </View>
-          ),
-        }}
-      />
+      {tabList?.map((item) => (
+        <Tabs.Screen
+          key={item.id}
+          name={item.name}
+          options={{
+            title: `${item.title}`,
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <View
+                style={[
+                  {
+                    backgroundColor: focused
+                      ? Colors[colorScheme ?? 'light'].primaryColor
+                      : Colors[colorScheme ?? 'light'].tabBackground,
+                  },
+                  styles.iconWrap,
+                ]}
+              >
+                <TabBarIcon name={item.tabIcon} color={color} />
+              </View>
+            ),
+          }}
+        />
+      ))}
     </Tabs>
   );
 }
