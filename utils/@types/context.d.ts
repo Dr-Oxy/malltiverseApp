@@ -4,11 +4,12 @@ import { ImageSourcePropType } from 'react-native';
 export type AppContextType = {
   cart: Item[];
   setCart: (cart: Item[]) => void;
-  onAdd: (product: Item) => void;
-  onRemove: (product: Item) => void;
+  onAdd: (product: Item, quanity: number) => void;
+  handleUpdate: ({ product: Item, action: string }) => void;
   onDelete: (product: Item) => void;
   selected: Item;
   setSelected: any;
+  deliveryFee: number;
 };
 
 export interface Item {
@@ -30,3 +31,8 @@ export interface PropsWithChildren {
 export type NavigationProps = {
   [key: string]: any;
 };
+
+export interface CartedProps {
+  product: Item;
+  action: 'increase' | 'decrease';
+}
