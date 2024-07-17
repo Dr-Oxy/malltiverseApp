@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 import { Item } from '@/utils/@types/context';
 
@@ -20,7 +13,7 @@ type ItemProps = {
 
 const ProductCard = ({ item, onPress }: ItemProps) => {
   return (
-    <View style={styles.productWrapper}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.imgWrap}>
         <Image
           source={{
@@ -43,23 +36,13 @@ const ProductCard = ({ item, onPress }: ItemProps) => {
       </View>
 
       <Text style={styles.price}>${item.current_price[0]?.USD[0]}</Text>
-
-      <TouchableOpacity onPress={onPress} style={styles.button}>
-        <Text style={styles.buttonText}>Add to cart </Text>
-      </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 export default ProductCard;
 
 const styles = StyleSheet.create({
-  productWrapper: {
-    // flex: 0.5,
-    // marginBottom: 24,
-    // marginRight: 12,
-  },
-
   imgWrap: {
     backgroundColor: '#EDEDEDAB',
     height: 184,
@@ -105,21 +88,5 @@ const styles = StyleSheet.create({
   rating: {
     flexDirection: 'row',
     marginVertical: 8,
-  },
-
-  button: {
-    alignSelf: 'flex-start',
-    borderColor: '#FF7F7D',
-    borderWidth: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 11,
-    borderRadius: 12,
-  },
-
-  buttonText: {
-    fontWeight: '500',
-    fontSize: 12,
-    fontFamily: 'Montserrat-Medium',
-    color: '#2A2A2ACC',
   },
 });

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useMemo } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,11 @@ import { Item } from '@/utils/@types/context';
 import { AppContext } from '@/utils/appContext';
 import ProductCard from './ProductCard';
 
+interface SectionProps {
+  arr: any;
+  title: string;
+}
+
 const { width } = Dimensions.get('window');
 const containerPadding = 24 * 2; // Padding on both sides
 const availableWidth = width - containerPadding;
@@ -21,11 +26,6 @@ const availableWidth = width - containerPadding;
 const slideSpacing = 20;
 const cardWidth = (availableWidth - slideSpacing) / 2 + 6;
 // const cardWidth = availableWidth * 0.5;
-
-interface SectionProps {
-  arr: any;
-  title: string;
-}
 
 const Section = ({ arr, title }: SectionProps) => {
   const { onAdd, cart } = useContext(AppContext);
@@ -43,11 +43,9 @@ const Section = ({ arr, title }: SectionProps) => {
   const flatListRef = useRef<FlatList<Item>>(null);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    // const index = Math.round(
-    //   event.nativeEvent.contentOffset.x / availableWidth,
-    // );
-
-    const index = Math.round(event.nativeEvent.contentOffset.x);
+    const index = Math.round(
+      event.nativeEvent.contentOffset.x / availableWidth,
+    );
 
     setCurrentIndex(index);
   };
@@ -68,32 +66,11 @@ const Section = ({ arr, title }: SectionProps) => {
     );
   };
 
-  const groupedProducts = useMemo(() => {
-    if (!arr) return [];
-    return arr.reduce((resultArray, item, index) => {
-      const chunkIndex = Math.floor(index / 2);
-      if (!resultArray[chunkIndex]) {
-        resultArray[chunkIndex] = [];
-      }
-      if (resultArray[chunkIndex].length < 2) {
-        resultArray[chunkIndex].push(item);
-      } else {
-        resultArray.push([item]); // Start a new group if the current one is full
-      }
-      return resultArray;
-    }, [] as Item[][]);
-  }, [arr]);
-
-  const flattenedProducts = groupedProducts.flat();
-
-  console.log({ groupedProducts, flattenedProducts });
-
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{title}</Text>
       <FlatList
-        data={flattenedProducts || []}
-        // data={arr?.filter((_: any, index: number) => index % 2 === 0)}
+        data={arr?.filter((_: any, index: number) => index % 2 === 0)}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         horizontal
@@ -102,7 +79,6 @@ const Section = ({ arr, title }: SectionProps) => {
         onScroll={handleScroll}
         ref={flatListRef}
         scrollEventThrottle={24}
-        // contentContainerStyle={styles.list}
         snapToInterval={availableWidth}
         decelerationRate="fast"
       />
@@ -142,29 +118,18 @@ const styles = StyleSheet.create({
   page: {
     width: availableWidth,
     flexDirection: 'row',
-    // backgroundColor: 'blue',
     paddingHorizontal: slideSpacing / 2,
   },
 
   card: {
     width: cardWidth,
-    backgroundColor: 'red',
     paddingHorizontal: slideSpacing / 4,
   },
-
-  // card: {
-  //   width: cardWidth,
-  //   backgroundColor: '#f9f9f9',
-  //   borderRadius: 8,
-  //   paddingVertical: 16,
-  //   alignItems: 'center',
-  //   margin: 8,
-  // },
 
   indicatorContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 16,
+    marginTop: 28,
   },
   indicator: {
     width: 12,

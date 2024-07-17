@@ -32,8 +32,6 @@ export const AppContextProvider = ({ children }: PropsWithChildren) => {
   const [cart, setCart] = useState<Item[]>([]);
   const [selected, setSelected] = useState<any>();
 
-  console.log({ selected });
-
   const onAdd = (product: Item) => {
     //checks if the product already exist in the cart
     const itemExist = cart.find((x) => x.id === product.id);
