@@ -18,7 +18,7 @@ import { useGetProducts } from '@/hooks/useProducts';
 import { Item, NavigationProps } from '@/utils/@types/context';
 
 export default function HomeScreen() {
-  const { data, isLoading, isError, refetch } = useGetProducts();
+  const { data, isLoading, isError, refetch, error } = useGetProducts();
 
   const products = useMemo(() => {
     return data?.data?.items;
@@ -40,9 +40,18 @@ export default function HomeScreen() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: '#232323' }}>
         <View style={styles.errorWrapper}>
-          <Text style={styles.errorText}>
-            Something went wrong! Reload Screen.
-          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              gap: 8,
+              alignItems: 'center',
+              marginBottom: 16,
+            }}
+          >
+            <Text style={{ color: 'red', fontSize: 20 }}>Error</Text>
+
+            <Text style={styles.errorText}>{error?.message}</Text>
+          </View>
 
           <Pressable style={styles.reloadButton} onPress={() => refetch()}>
             <Text> Reload</Text>
@@ -57,13 +66,15 @@ export default function HomeScreen() {
       <Header text="Product Listing" />
 
       {isLoading ? (
-        <TwoColumn>
-          {Array(6)
-            .fill('')
-            .map((_, i) => (
-              <ProductLoader key={i} />
-            ))}
-        </TwoColumn>
+        <View style={{ flex: 1 }}>
+          <TwoColumn>
+            {Array(6)
+              .fill('')
+              .map((_, i) => (
+                <ProductLoader key={i} />
+              ))}
+          </TwoColumn>
+        </View>
       ) : (
         <ScrollView style={styles.productContainer}>
           <Image
@@ -98,9 +109,8 @@ export const styles = StyleSheet.create({
 
   errorText: {
     color: 'black',
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Montserrat-Medium',
-    marginBottom: 20,
   },
 
   reloadButton: {

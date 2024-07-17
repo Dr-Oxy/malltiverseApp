@@ -55,9 +55,9 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   productWrapper: {
-    flex: 0.5,
-    marginBottom: 24,
-    marginRight: 12,
+    // flex: 0.5,
+    // marginBottom: 24,
+    // marginRight: 12,
   },
 
   imgWrap: {
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
 
   productImage: {
     height: `80%`,
-    width: '100%',
-    resizeMode: 'contain',
+    width: '80%',
+    resizeMode: 'cover',
   },
 
   price: {

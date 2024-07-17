@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: '#FAFAFA',
+    position: 'relative',
   },
 
   emptyCart: {
@@ -153,10 +154,10 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Montserrat-Regular',
     paddingVertical: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 17,
     borderRadius: 9,
     borderWidth: 1,
-    borderColor: '#2A2A2AB2',
+    borderColor: '#979797',
     flex: 1,
   },
 
@@ -208,5 +209,69 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     color: 'black',
+  },
+
+  hero: {
+    height: 232,
+    width: `100%`,
+    resizeMode: 'contain',
+    marginBottom: 30,
+  },
+
+  header: {
+    height: 100,
+    width: `100%`,
+    backgroundColor: '#FAFAFA',
+    paddingTop: 40,
+    paddingHorizontal: 22,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 34,
+  },
+
+  logo: {
+    height: 31,
+    width: 99,
+    resizeMode: 'contain',
+  },
+
+  headerText: {
+    color: '##2A2A2A',
+    fontSize: 19,
+    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
+  },
+
+  cardLead: {
+    fontWeight: '500',
+    fontSize: 14,
+    fontFamily: 'Montserrat-Medium',
+    color: '#2A2A2ACC',
+    marginBottom: 12,
+  },
+
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: '',
+  },
+
+  paymentLead: {
+    fontSize: 22,
+    fontWeight: '600',
+    fontFamily: 'Monsterrat-SemiBold',
+    marginTop: 24,
+  },
+
+  lottie: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
+    pointerEvents: 'none',
   },
 });

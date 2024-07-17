@@ -54,9 +54,32 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="explore"
+        name="(cart)"
         options={{
-          title: 'Explore',
+          title: 'Cart',
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={[
+                { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
+                styles.iconWrap,
+              ]}
+            >
+              <TabIcon
+                source={
+                  focused
+                    ? require('@/assets/images/cart-focused.png')
+                    : require('@/assets/images/cart.png')
+                }
+              />
+            </View>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="support"
+        options={{
+          title: 'Support',
           tabBarIcon: ({ focused }) => (
             <View
               style={[
@@ -77,9 +100,9 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="cart"
+        name="profile"
         options={{
-          title: 'Cart',
+          title: 'Profile',
           tabBarIcon: ({ focused }) => (
             <View
               style={[
@@ -90,8 +113,8 @@ export default function TabLayout() {
               <TabIcon
                 source={
                   focused
-                    ? require('@/assets/images/cart-focused.png')
-                    : require('@/assets/images/cart.png')
+                    ? require('@/assets/images/cart2.png')
+                    : require('@/assets/images/cart2.png')
                 }
               />
             </View>

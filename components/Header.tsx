@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 
 interface TextProps {
-  text: string;
+  text?: string;
 }
 
 const Header = ({ text }: TextProps) => {
