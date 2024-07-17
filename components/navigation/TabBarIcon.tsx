@@ -24,5 +24,3 @@ export function TabIcon({ source }: IconProp) {
     />
   );
 }
-
-// <Image source={require('./assets/images/slack-icon.png')}

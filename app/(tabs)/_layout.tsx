@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { TabIcon } from '@/components/navigation/TabBarIcon';
+import { TabIcon, TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -34,20 +34,14 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ color, focused }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabIcon
-                source={
-                  focused
-                    ? require('@/assets/images/home-2.png')
-                    : require('@/assets/images/home.png')
-                }
-              />
+              <TabBarIcon name="home" color={color} />
             </View>
           ),
         }}
@@ -57,20 +51,14 @@ export default function TabLayout() {
         name="(cart)"
         options={{
           title: 'Cart',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused, color }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabIcon
-                source={
-                  focused
-                    ? require('@/assets/images/cart-focused.png')
-                    : require('@/assets/images/cart.png')
-                }
-              />
+              <TabBarIcon name="cart" color={color} />
             </View>
           ),
         }}
@@ -80,20 +68,14 @@ export default function TabLayout() {
         name="support"
         options={{
           title: 'Support',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused, color }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabIcon
-                source={
-                  focused
-                    ? require('@/assets/images/cart2.png')
-                    : require('@/assets/images/cart2.png')
-                }
-              />
+              <TabBarIcon name="chatbubbles" color={color} />
             </View>
           ),
         }}
@@ -103,20 +85,14 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({ focused, color }) => (
             <View
               style={[
                 { backgroundColor: focused ? '#FF7F7D' : '#2A2A2A' },
                 styles.iconWrap,
               ]}
             >
-              <TabIcon
-                source={
-                  focused
-                    ? require('@/assets/images/cart2.png')
-                    : require('@/assets/images/cart2.png')
-                }
-              />
+              <TabBarIcon name="person" color={color} />
             </View>
           ),
         }}
