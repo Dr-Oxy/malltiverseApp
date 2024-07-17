@@ -7,12 +7,12 @@ import {
   Dimensions,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  Alert,
 } from 'react-native';
 
 import { Item } from '@/utils/@types/context';
 import { AppContext } from '@/utils/appContext';
 import ProductCard from './ProductCard';
+import ProductDetails from './ProductDetails';
 
 interface SectionProps {
   arr: any;
@@ -25,19 +25,18 @@ const availableWidth = width - containerPadding;
 
 const slideSpacing = 20;
 const cardWidth = (availableWidth - slideSpacing) / 2 + 6;
-// const cardWidth = availableWidth * 0.5;
 
 const Section = ({ arr, title }: SectionProps) => {
-  const { onAdd, cart } = useContext(AppContext);
+  const { setSelected } = useContext(AppContext);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [openModal, setOpenModal] = useState(false);
 
-  const addToCart = (product: Item) => {
-    onAdd(product);
+  const show = () => {
+    setOpenModal(true);
+  };
 
-    Alert.alert(
-      'Product Added!',
-      `${product.name} has been successfully added to cart.`,
-    );
+  const hide = () => {
+    setOpenModal(false);
   };
 
   const flatListRef = useRef<FlatList<Item>>(null);
@@ -52,7 +51,14 @@ const Section = ({ arr, title }: SectionProps) => {
 
   const renderProduct = (item: Item) => (
     <View style={styles.card} key={item.id}>
-      <ProductCard onPress={() => addToCart(item)} key={item.id} item={item} />
+      <ProductCard
+        onPress={() => {
+          setSelected(item);
+          show();
+        }}
+        key={item.id}
+        item={item}
+      />
     </View>
   );
 
@@ -69,6 +75,7 @@ const Section = ({ arr, title }: SectionProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{title}</Text>
+
       <FlatList
         data={arr?.filter((_: any, index: number) => index % 2 === 0)}
         renderItem={renderItem}
@@ -95,6 +102,10 @@ const Section = ({ arr, title }: SectionProps) => {
               ]}
             />
           ))}
+      </View>
+
+      <View>
+        <ProductDetails openModal={openModal} hide={hide} />
       </View>
     </View>
   );

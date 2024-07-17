@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import {
-  Image,
   ScrollView,
   SafeAreaView,
   Pressable,
@@ -11,20 +10,21 @@ import {
   TextInput,
 } from 'react-native';
 
-import { Header, CartTab } from '@/components';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { Header, CartTab, CartCard } from '@/components';
 
 import { AppContext } from '@/utils/appContext';
-import { styles } from '@/styles/cart';
+import { NavigationProps, Item } from '@/utils/@types/context';
 
-import { NavigationProps } from '@/utils/@types/context';
+import { styles } from '@/styles/cart';
 
 export default function Cart() {
   const navigation = useNavigation<NavigationProps>();
-  const { cart, onDelete, onAdd, onRemove } = useContext(AppContext);
-  const [discount, setDiscount] = useState('');
+  const movePage = () => {
+    navigation.navigate('payment');
+  };
 
-  const deliveryFee = 15;
+  const { cart, deliveryFee } = useContext(AppContext);
+  const [discount, setDiscount] = useState('');
 
   //Total cart
   const sumPrice = cart.reduce(
@@ -33,12 +33,7 @@ export default function Cart() {
   );
 
   const subTotal = new Intl.NumberFormat().format(sumPrice);
-
   const total = new Intl.NumberFormat().format(deliveryFee + sumPrice);
-
-  const movePage = () => {
-    navigation.navigate('payment');
-  };
 
   return (
     <SafeAreaView style={styles.wrapper}>
@@ -53,64 +48,7 @@ export default function Cart() {
         <ScrollView style={styles.checkout}>
           <View style={{ flex: 1 }}>
             {cart?.map((item) => (
-              <View style={styles.cartCard} key={item.id}>
-                <View>
-                  <Image
-                    style={styles.cardImg}
-                    source={{
-                      uri: `https://api.timbu.cloud/images/${item?.photos[0]?.url}`,
-                    }}
-                  />
-                </View>
-
-                <View style={styles.cardGroup}>
-                  <View
-                    style={[styles.cardFlex, { marginBottom: 10, gap: 32 }]}
-                  >
-                    <View style={styles.cardText}>
-                      <Text style={styles.title}>{item.name}</Text>
-                      <Text style={styles.sub}>{item.description}</Text>
-                    </View>
-
-                    <View>
-                      <Pressable
-                        onPress={() => onDelete(item)}
-                        style={styles.delButton}
-                      >
-                        <TabBarIcon
-                          size={18}
-                          name="trash-outline"
-                          color="black"
-                        />
-                      </Pressable>
-                    </View>
-                  </View>
-
-                  <View style={[styles.cardFlex, { alignItems: 'center' }]}>
-                    <View style={styles.qtyWrap}>
-                      <Pressable
-                        onPress={() => onRemove(item)}
-                        style={styles.qtyButton}
-                      >
-                        <TabBarIcon size={17} name="remove" color="black" />
-                      </Pressable>
-
-                      <Text style={styles.qtyText}>{item?.qty}</Text>
-
-                      <Pressable
-                        onPress={() => onAdd(item)}
-                        style={styles.qtyButton}
-                      >
-                        <TabBarIcon size={17} name="add" color="black" />
-                      </Pressable>
-                    </View>
-
-                    <Text style={styles.price}>
-                      ${item.current_price[0]?.USD[0] * item.qty}
-                    </Text>
-                  </View>
-                </View>
-              </View>
+              <CartCard item={item} />
             ))}
 
             <View style={styles.totalWrap}>

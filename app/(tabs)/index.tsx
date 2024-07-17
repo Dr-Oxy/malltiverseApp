@@ -13,7 +13,7 @@ import { styles } from '@/styles/home';
 
 import { Header } from '@/components';
 
-import { ProductLoader, TwoColumn, ProductCard, Section } from '@/components';
+import { ProductLoader, TwoColumn, Section } from '@/components';
 
 import { useGetProducts } from '@/hooks/useProducts';
 import { Item } from '@/utils/@types/context';
